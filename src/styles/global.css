@@ -1,11 +1,19 @@
-html {
-    font: 16px/20px 'Ubuntu Mono', monospace;
-    color: #2D2D2D;
-    background: #F5F5DC;
+:root {
+    --color-black: #2D2D2D;
+    --color-bg: #F5F5DC;
+    font-size: 62.5%;
 }
 
 body {
+    font: 1.6rem/2rem 'Ubuntu Mono', monospace;
+    color: var(--color-black);
+    background: var(--color-bg);
+}
+
+* {
     margin: 0;
+    font: inherit;
+    box-sizing: border-box;
 }
 
 a {
@@ -13,6 +21,10 @@ a {
     text-decoration: none;
 }
 
-* {
-    box-sizing: border-box;
+h1 {
+    font-size: 2.4rem;
+}
+
+button {
+    cursor: pointer;
 }

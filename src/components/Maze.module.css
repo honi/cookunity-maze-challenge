@@ -6,5 +6,5 @@
 }
 
 .wall {
-    background: #2D2D2D;
+    background: var(--color-black);
 }
