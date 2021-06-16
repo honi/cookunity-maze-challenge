@@ -1,6 +1,7 @@
 :root {
-    --color-black: #2D2D2D;
     --color-bg: #F5F5DC;
+    --color-black: #2D2D2D;
+    --color-green: rgb(100, 195, 45);
     font-size: 62.5%;
 }
 

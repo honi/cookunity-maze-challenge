@@ -1,10 +1,12 @@
 import {configureStore} from '@reduxjs/toolkit'
 
 import mazeReducer from './modules/maze'
+import playerReducer from './modules/player'
 
 const store = configureStore({
     reducer: {
         maze: mazeReducer,
+        player: playerReducer,
     },
 })
 

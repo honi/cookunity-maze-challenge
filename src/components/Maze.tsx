@@ -1,11 +1,14 @@
+import {Player} from 'components/Player'
 import {useAppSelector} from 'store/hooks'
 import {selectColumns, selectTiles, WALL} from 'store/modules/maze'
+import {selectPlayerTile} from 'store/modules/player'
 
 import styles from './Maze.module.css'
 
 export function Maze() {
     const columns = useAppSelector(selectColumns)
     const tiles = useAppSelector(selectTiles)
+    const playerTile = useAppSelector(selectPlayerTile)
 
     return (
         <div
@@ -14,8 +17,9 @@ export function Maze() {
             {tiles.map((tile, index) => (
                 <div
                     key={index}
-                    className={`${styles.tile} ${tile === WALL ? styles.wall : ''}`}
-                />
+                    className={`${styles.tile} ${tile === WALL ? styles.wall : ''}`}>
+                    {index === playerTile && <Player />}
+                </div>
             ))}
         </div>
     )
