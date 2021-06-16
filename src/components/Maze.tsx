@@ -9,7 +9,7 @@ export function Maze() {
 
     return (
         <div
-            className={styles.map}
+            className={styles.root}
             style={{gridTemplateColumns: `repeat(${columns}, 1fr)`}}>
             {tiles.map((tile, index) => (
                 <div
