@@ -4,7 +4,7 @@ Author: Joni Bekenstein (joni@bek.io)
 
 ## Deployed app
 
-TBD
+Open [https://cookunity-maze-challenge.vercel.app/](https://cookunity-maze-challenge.vercel.app/)
 
 ## Run locally
 
