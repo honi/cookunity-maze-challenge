@@ -1,6 +1,7 @@
 {
     "name": "cookunity-maze-challenge",
     "author": "Joni Bekenstein <joni@bek.io>",
+    "homepage": "https://github.com/honi/cookunity-maze-challenge",
     "version": "0.1.0",
     "private": true,
     "scripts": {

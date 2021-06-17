@@ -36,7 +36,9 @@ export function Layout({children}) {
             </div>
             <div className={styles.footer}>
                 <div>
-                    Developed by Joni Bekenstein (<a href='mailto:joni@bek.io' target='_blank' rel='noreferrer'>joni@bek.io</a>)
+                    Developed by Joni Bekenstein
+                    (<a href='mailto:joni@bek.io' target='_blank' rel='noreferrer'>joni@bek.io</a>)
+                    (<a href='https://github.com/honi/cookunity-maze-challenge' target='_blank' rel='noreferrer'>view source</a>)
                 </div>
                 <div>
                     {moveCountReportStatus === 'loading' && 'Reporting move count...'}
