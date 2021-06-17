@@ -8,13 +8,11 @@ const WALK_SPEED = 250
 
 export function Player() {
     const dispatch = useAppDispatch()
+
     useEffect(() => {
         const intervalId = setInterval(() => dispatch(walk()), WALK_SPEED)
         return () => clearInterval(intervalId)
     }, [dispatch])
 
-    return (
-        <div className={styles.root}>
-        </div>
-    )
+    return <div className={styles.root} />
 }

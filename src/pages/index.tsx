@@ -7,6 +7,7 @@ import {calculatePath} from 'store/modules/player'
 export default function Index() {
     const [showWelcome, setShowWelcome] = useState(true)
     const dispatch = useAppDispatch()
+
     const handleStart = useCallback(() => {
         dispatch(calculatePath())
         setShowWelcome(false)
