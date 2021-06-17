@@ -12,7 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 3.2rem;
+    height: 6.4rem;
 }
 
 .toolbar {
@@ -26,13 +26,14 @@
 }
 
 .content {
-    position: relative;
+    padding: 1.6rem;
     flex-grow: 1;
+    border: 1px solid var(--color-black);
 }
 
 .footer {
     height: 3.2rem;
     display: flex;
     align-items: flex-end;
-    justify-content: flex-end;
+    justify-content: space-between;
 }

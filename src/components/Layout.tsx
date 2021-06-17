@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import {useCallback} from 'react'
 import {useAppDispatch, useAppSelector} from 'store/hooks'
 import {
@@ -19,7 +20,10 @@ export function Layout({children}) {
     return (
         <div className={styles.root}>
             <div className={styles.header}>
-                <h1>CookUnity Maze Challenge</h1>
+                <div>
+                    <Image src='/cookunity.png' alt='CookUnity' width={150} height={27} />
+                    <div>Maze Challenge</div>
+                </div>
                 {isWalking && (
                     <div className={styles.toolbar}>
                         <div>Moves: {moveCount}</div>
@@ -31,9 +35,14 @@ export function Layout({children}) {
                 {children}
             </div>
             <div className={styles.footer}>
-                {moveCountReportStatus === 'loading' && 'Reporting move count...'}
-                {moveCountReportStatus === 'error' && 'Error reporting move count :('}
-                {moveCountReportStatus === 'success' && 'Move count reported successfully!'}
+                <div>
+                    Developed by Joni Bekenstein (<a href='mailto:joni@bek.io' target='_blank' rel='noreferrer'>joni@bek.io</a>)
+                </div>
+                <div>
+                    {moveCountReportStatus === 'loading' && 'Reporting move count...'}
+                    {moveCountReportStatus === 'error' && 'Error reporting move count :('}
+                    {moveCountReportStatus === 'success' && 'Move count reported successfully!'}
+                </div>
             </div>
         </div>
     )
