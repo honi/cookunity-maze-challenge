@@ -1,6 +1,6 @@
 import {EMPTY, EXIT, MazeState, START, Tile, WALL} from 'store/modules/maze'
 
-export const parseMaze = (rawMaze: string): MazeState => {
+export const parseMaze = (rawMaze: string) => {
     const tileMapping: Record<string, Tile> = {'S': START, 'E': EXIT, 'X': WALL, ' ': EMPTY}
     const rows = rawMaze.trim().split('\n').map(row => row.trim())
     const tiles = rows.join('').split('').map(tile => {
@@ -20,7 +20,7 @@ export const calculatePath = (maze: MazeState) => {
     return calculateSubPath(maze, [start], exit)
 }
 
-const calculateSubPath = (maze: MazeState, path: number[], exit: number) => {
+const calculateSubPath = (maze: MazeState, path: number[], exit: number): number[] => {
     const currentPosition = path[path.length - 1]
     if (currentPosition === exit) return path
 
@@ -35,10 +35,10 @@ const calculateSubPath = (maze: MazeState, path: number[], exit: number) => {
     return []
 }
 
-const getNextPositions = (maze: MazeState, path: number[], position: number) => {
-    const nextPositions: number[] = []
+const getNextPositions = (maze: MazeState, path: number[], position: number): number[] => {
+    const nextPositions = []
     const isValidPosition = nextPosition => (
-        maze.tiles[nextPosition] !== WALL && !path.includes(nextPosition)
+        maze.tiles[nextPosition] !== WALL && path[path.length - 2] !== nextPosition
     )
 
     const up = position - maze.columns
