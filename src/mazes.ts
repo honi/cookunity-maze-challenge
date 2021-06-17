@@ -1,4 +1,4 @@
-export const maze0 = `
+export const MAZE0 = `
 XSXXXXXXXXXX
 X X   X    X
 X   X X X XX

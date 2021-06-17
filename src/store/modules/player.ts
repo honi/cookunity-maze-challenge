@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from 'store'
 
 export const reportMoveCount = createAsyncThunk('player/reportMoveCount', async (moveCount: number) => {
@@ -12,21 +12,21 @@ export const reportMoveCount = createAsyncThunk('player/reportMoveCount', async 
 interface PlayerState {
     path: number[]
     position: number
-    moveCountReportStatus: 'walking' | 'loading' | 'error' | 'success'
+    moveCountReportStatus: null | 'loading' | 'error' | 'success'
 }
 
 const initialState: PlayerState = {
     path: [],
     position: 0,
-    moveCountReportStatus: 'walking',
+    moveCountReportStatus: null,
 }
 
 export const playerSlice = createSlice({
     name: 'player',
     initialState,
     reducers: {
-        calculatePath: (state) => {
-            state.path = [1, 13, 25, 26, 27, 15, 16, 17, 29, 41, 53, 52, 51, 50, 49, 61, 73, 74, 75, 76, 77, 89, 101, 113, 125, 126, 127, 115, 116, 117, 129, 130, 131]
+        setPath: (state, action: PayloadAction<number[]>) => {
+            state.path = action.payload
         },
         walk: (state) => {
             if (state.position < state.path.length - 1) {
@@ -35,7 +35,7 @@ export const playerSlice = createSlice({
         },
         restartWalk: (state) => {
             state.position = 0
-            state.moveCountReportStatus = 'walking'
+            state.moveCountReportStatus = null
         },
     },
     extraReducers: {
@@ -52,7 +52,7 @@ export const playerSlice = createSlice({
 })
 
 export default playerSlice.reducer
-export const {calculatePath, walk, restartWalk} = playerSlice.actions
+export const {setPath, walk, restartWalk} = playerSlice.actions
 
 export const selectPlayerTile = (state: RootState) => state.player.path[state.player.position]
 export const selectPlayerIsWalking = (state: RootState) => state.player.path.length > 0

@@ -1,18 +1,21 @@
 import {Maze} from 'components/Maze'
 import {WelcomeOverlay} from 'components/WelcomeOverlay'
-import {maze0} from 'mazes'
+import {MAZE0} from 'mazes'
 import {useCallback} from 'react'
 import {useAppDispatch, useAppSelector} from 'store/hooks'
-import {initMaze} from 'store/modules/maze'
-import {calculatePath, selectPlayerIsWalking} from 'store/modules/player'
+import {setMaze} from 'store/modules/maze'
+import {selectPlayerIsWalking, setPath} from 'store/modules/player'
+import {calculatePath, parseMaze} from 'utils'
 
 export default function Index() {
     const dispatch = useAppDispatch()
     const isWalking = useAppSelector(selectPlayerIsWalking)
 
     const handleStart = useCallback(() => {
-        dispatch(initMaze(maze0))
-        dispatch(calculatePath())
+        const maze = parseMaze(MAZE0)
+        const path = calculatePath(maze)
+        dispatch(setMaze(maze))
+        dispatch(setPath(path))
     }, [dispatch])
 
     return isWalking ? <Maze /> : <WelcomeOverlay onStart={handleStart} />
