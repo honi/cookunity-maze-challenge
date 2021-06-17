@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from 'store'
 
 export const reportMoveCount = createAsyncThunk('player/reportMoveCount', async (moveCount: number) => {
-    await fetch('http://www.mocky.io/v2/5df38f523100006d00b58560', {
+    await fetch('https://www.mocky.io/v2/5df38f523100006d00b58560', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({moveCount}),
