@@ -1,45 +1,46 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from 'store'
 
-export const FREE = 0
-export const WALL = 1
-export const INIT = 2
-export const EXIT = 3
+export const START = 1
+export const EXIT = 2
+export const WALL = 3
+export const EMPTY = 4
 
-type Tile = typeof FREE | typeof WALL | typeof INIT | typeof EXIT
+type Tile = typeof START | typeof EXIT | typeof WALL | typeof EMPTY
 
 interface MazeState {
     columns: number
-    rows: number
     tiles: Tile[]
 }
 
 const initialState: MazeState = {
-    columns: 12,
-    rows: 12,
-    tiles: [
-        WALL, INIT, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL,
-        WALL, FREE, WALL, FREE, FREE, FREE, WALL, FREE, FREE, FREE, FREE, WALL,
-        WALL, FREE, FREE, FREE, WALL, FREE, WALL, FREE, WALL, FREE, WALL, WALL,
-        WALL, WALL, WALL, WALL, WALL, FREE, FREE, FREE, WALL, FREE, FREE, WALL,
-        WALL, FREE, FREE, FREE, FREE, FREE, WALL, WALL, WALL, WALL, FREE, WALL,
-        WALL, FREE, WALL, WALL, WALL, WALL, WALL, FREE, FREE, FREE, FREE, WALL,
-        WALL, FREE, FREE, FREE, FREE, FREE, WALL, FREE, WALL, WALL, WALL, WALL,
-        WALL, WALL, WALL, FREE, WALL, FREE, WALL, FREE, FREE, FREE, FREE, WALL,
-        WALL, FREE, FREE, FREE, WALL, FREE, WALL, WALL, WALL, WALL, WALL, WALL,
-        WALL, WALL, FREE, WALL, WALL, FREE, WALL, FREE, FREE, FREE, WALL, WALL,
-        WALL, FREE, FREE, FREE, WALL, FREE, FREE, FREE, WALL, FREE, FREE, EXIT,
-        WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL,
-    ],
+    columns: 0,
+    tiles: []
 }
 
 export const mazeSlice = createSlice({
     name: 'maze',
     initialState,
-    reducers: {},
+    reducers: {
+        initMaze: (state, action: PayloadAction<string>) => {
+            [state.columns, state.tiles] = parseMaze(action.payload)
+        },
+    },
 })
+
+export default mazeSlice.reducer
+export const {initMaze} = mazeSlice.actions
 
 export const selectColumns = (state: RootState) => state.maze.columns
 export const selectTiles = (state: RootState) => state.maze.tiles
 
-export default mazeSlice.reducer
+function parseMaze(input: string): [number, Tile[]] {
+    const tileMapping: Record<string, Tile> = {'S': START, 'E': EXIT, 'X': WALL, ' ': EMPTY}
+    const rows = input.trim().split('\n').map(row => row.trim())
+    const tiles = rows.join('').split('').map(tile => {
+        const tileCode = tileMapping[tile]
+        if (tileCode === undefined) throw new Error(`Invalid maze tile: ${tile}`)
+        return tileCode
+    })
+    return [rows.length, tiles]
+}
