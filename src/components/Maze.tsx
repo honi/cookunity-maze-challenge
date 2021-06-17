@@ -1,13 +1,13 @@
-import {reportMoveCount} from 'api'
 import {Player} from 'components/Player'
 import {useEffect} from 'react'
-import {useAppSelector} from 'store/hooks'
+import {useAppDispatch, useAppSelector} from 'store/hooks'
 import {selectColumns, selectTiles, WALL} from 'store/modules/maze'
-import {selectMazeComplete, selectPlayerMoveCount, selectPlayerTile} from 'store/modules/player'
+import {reportMoveCount, selectMazeComplete, selectPlayerMoveCount, selectPlayerTile} from 'store/modules/player'
 
 import styles from './Maze.module.css'
 
 export function Maze() {
+    const dispatch = useAppDispatch()
     const columns = useAppSelector(selectColumns)
     const tiles = useAppSelector(selectTiles)
     const playerTile = useAppSelector(selectPlayerTile)
@@ -15,8 +15,8 @@ export function Maze() {
     const moveCount = useAppSelector(selectPlayerMoveCount)
 
     useEffect(() => {
-        if (mazeComplete) reportMoveCount(moveCount)
-    }, [mazeComplete, moveCount])
+        if (mazeComplete) dispatch(reportMoveCount(moveCount))
+    }, [dispatch, mazeComplete, moveCount])
 
     return (
         <div

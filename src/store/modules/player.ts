@@ -1,14 +1,24 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import {RootState} from 'store'
 
+export const reportMoveCount = createAsyncThunk('player/reportMoveCount', async (moveCount: number) => {
+    await fetch('http://www.mocky.io/v2/5df38f523100006d00b58560', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({moveCount}),
+    })
+})
+
 interface PlayerState {
-    position: number
     path: number[]
+    position: number
+    moveCountReportStatus: 'walking' | 'loading' | 'error' | 'success'
 }
 
 const initialState: PlayerState = {
-    position: 0,
     path: [],
+    position: 0,
+    moveCountReportStatus: 'walking',
 }
 
 export const playerSlice = createSlice({
@@ -25,6 +35,18 @@ export const playerSlice = createSlice({
         },
         restartWalk: (state) => {
             state.position = 0
+            state.moveCountReportStatus = 'walking'
+        },
+    },
+    extraReducers: {
+        [reportMoveCount.pending.toString()]: (state) => {
+            state.moveCountReportStatus = 'loading'
+        },
+        [reportMoveCount.rejected.toString()]: (state) => {
+            state.moveCountReportStatus = 'error'
+        },
+        [reportMoveCount.fulfilled.toString()]: (state) => {
+            state.moveCountReportStatus = 'success'
         },
     }
 })
@@ -35,5 +57,6 @@ export const selectPlayerTile = (state: RootState) => state.player.path[state.pl
 export const selectPlayerIsWalking = (state: RootState) => state.player.path.length > 0
 export const selectPlayerMoveCount = (state: RootState) => state.player.position
 export const selectMazeComplete = (state: RootState) => state.player.position == state.player.path.length - 1
+export const selectMoveCountReportStatus = (state: RootState) => state.player.moveCountReportStatus
 
 export default playerSlice.reducer

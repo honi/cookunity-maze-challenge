@@ -29,3 +29,10 @@
     position: relative;
     flex-grow: 1;
 }
+
+.footer {
+    height: 3.2rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}

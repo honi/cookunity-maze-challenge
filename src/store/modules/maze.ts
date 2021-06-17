@@ -36,7 +36,7 @@ const initialState: MazeState = {
 export const mazeSlice = createSlice({
     name: 'maze',
     initialState,
-    reducers: {}
+    reducers: {},
 })
 
 export const selectColumns = (state: RootState) => state.maze.columns

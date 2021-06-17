@@ -1,6 +1,8 @@
 import {useCallback} from 'react'
 import {useAppDispatch, useAppSelector} from 'store/hooks'
-import {restartWalk, selectPlayerIsWalking, selectPlayerMoveCount} from 'store/modules/player'
+import {
+    restartWalk, selectMoveCountReportStatus, selectPlayerIsWalking, selectPlayerMoveCount,
+} from 'store/modules/player'
 
 import styles from './Layout.module.css'
 
@@ -8,6 +10,7 @@ export function Layout({children}) {
     const dispatch = useAppDispatch()
     const isWalking = useAppSelector(selectPlayerIsWalking)
     const moveCount = useAppSelector(selectPlayerMoveCount)
+    const moveCountReportStatus = useAppSelector(selectMoveCountReportStatus)
 
     const handleRestart = useCallback(() => {
         dispatch(restartWalk())
@@ -26,6 +29,11 @@ export function Layout({children}) {
             </div>
             <div className={styles.content}>
                 {children}
+            </div>
+            <div className={styles.footer}>
+                {moveCountReportStatus === 'loading' && 'Reporting move count...'}
+                {moveCountReportStatus === 'error' && 'Error reporting move count :('}
+                {moveCountReportStatus === 'success' && 'Move count reported successfully!'}
             </div>
         </div>
     )
