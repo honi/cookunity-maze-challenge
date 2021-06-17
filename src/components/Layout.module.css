@@ -9,6 +9,20 @@
 
 .header {
     margin-bottom: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 3.2rem;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+}
+
+.toolbar > *:not(:first-child) {
+    display: block;
+    margin-left: 1.6rem;
 }
 
 .content {

@@ -8,7 +8,7 @@ interface PlayerState {
 
 const initialState: PlayerState = {
     position: 0,
-    path: [0],
+    path: [],
 }
 
 export const playerSlice = createSlice({
@@ -23,11 +23,16 @@ export const playerSlice = createSlice({
                 state.position += 1
             }
         },
+        restartWalk: (state) => {
+            state.position = 0
+        },
     }
 })
 
-export const {calculatePath, walk} = playerSlice.actions
+export const {calculatePath, walk, restartWalk} = playerSlice.actions
 
 export const selectPlayerTile = (state: RootState) => state.player.path[state.player.position]
+export const selectPlayerIsWalking = (state: RootState) => state.player.path.length > 0
+export const selectPlayerMoveCount = (state: RootState) => state.player.position
 
 export default playerSlice.reducer
