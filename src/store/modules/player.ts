@@ -34,5 +34,6 @@ export const {calculatePath, walk, restartWalk} = playerSlice.actions
 export const selectPlayerTile = (state: RootState) => state.player.path[state.player.position]
 export const selectPlayerIsWalking = (state: RootState) => state.player.path.length > 0
 export const selectPlayerMoveCount = (state: RootState) => state.player.position
+export const selectMazeComplete = (state: RootState) => state.player.position == state.player.path.length - 1
 
 export default playerSlice.reducer
